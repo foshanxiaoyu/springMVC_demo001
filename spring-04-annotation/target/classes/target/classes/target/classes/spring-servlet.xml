@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+              http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+<!--scan page 指定包下的注解生效，由IOC容器统一管理-->
+    <context:component-scan base-package="com.foshanxiaoyu.controller"/>
+    <!--让springMVC 不处理静态资源 过滤  -->
+    <mvc:default-servlet-handler/>
+    <!--
+    支持MVC注解驱动 在spring中一般采用 @RequestMapping 注解完成映射关系
+    要想使 @RequestMapping注解生效
+    必须向上下文中注册 DefaultAnnotationHandlerMapping
+    和一个 AnnotationMethodHandlerAdapter 实例
+    而 annotation-driven 配置帮助我们自动完成上述两个实例的注入
+
+    -->
+    <mvc:annotation-driven/>
+
+    <!-- 处理器，适配器  在注解用法中 注意看上面的解释
+    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+-->
+
+
+    <!-- 视图解析器：DispatcherServlet for ModelAndView -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="internalResourceViewResolver">
+        <!-- 前缀-->
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <!-- 后缀-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- HandLer 注解方式会自动扫描配置这个 bean
+    <bean id="/demo" class="com.foshanxiaoyu.controller.DemoController"/>-->
+</beans>
